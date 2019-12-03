@@ -1,2 +1,22 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="jumbotron">
+  <h1 style="text-align:center">Chat</h1>
+  <div class="well" id="chatbox">
+    <% @messages.each do |message| %>
+      <%= render 'messages/message', message: message %>
+    <% end %>
+  </div>
+  <% if current_user %>
+  <%= form_with model: @message do |f|%>
+  <div class="input-group mb-3">
+    <%= f.text_field :body, placeholder: "say something", class: "control-form" %>
+    <div class="input-group-append">
+      <%= f.submit "send", class: "btn btn-primary" %>
+    </div>
+  </div>
+  <% end %>
+  <% else %>
+  <p style="text-align:center">
+    go to <%= link_to "signed in", new_user_session_path %> and then log in to chat.
+  </p>
+  <% end %>
+</div>
